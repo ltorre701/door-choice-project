@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Grandstander:wght@600&family=League+Spartan:wght@600&family=Lobster&family=Merriweather:wght@300&family=Yellowtail&display=swap');
+div#container{
+  margin: -8px;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(0deg ,#00aaaa, #f7f7f7 50%);
+  font-family: 'Grandstander', cursive;
+  text-align: center;
+}
+div#main {
+  display: none;
+  position: relative;
+}
+h1{
+  position: absolute;
+  left: 36vw;
+  text-align: center;
+}
+h2{
+  position: absolute;
+  left: 36vw;
+  top: -3vh;
+  text-align: center;
+  font-size: 3rem;
+}
+input{
+  position: absolute;
+  left: 43vw;
+  top: 10vh;
+}
+button{
+  position: absolute;
+  top: 10vh;
+  left: 35vw;
+}
+#retryButton {
+  position: absolute;
+  top: 80vh;
+  left: 45.5vw;
+  display: none;
+}
+p#main-text{
+  position: absolute;
+  top: 50vh;
+  left: 20vw;
+}
+p#numberChoices{
+  position: absolute;
+  top: 57vh;
+  left: 40vw;
+}
+p#correctChoices{
+  position: absolute;
+  top: 62vh;
+  left: 40vw;
+}
+p#percentChoice{
+  position: absolute;
+  top: 67vh;
+  left: 40vw;
+}
+p#output {
+  position: absolute;
+  top: 70vh;
+  left: 40vw;
+  font-size: 1.5rem;
+}
+.mainImage{
+  height: 30vh;
+  animation: swing 6s ease-in-out infinite;
+}
+#coolDog{
+  position: absolute;
+  top: 17vh
+}
+#funnyDog{
+  position: absolute;
+  top: 17vh;
+  left: 25vw
+}
+#door1{
+  position: absolute;
+  width: 8vw;
+  height: 20vh;
+  left: 35vw;
+  top: 78vh;
+}
+#door2{
+  position: absolute;
+  width: 8vw;
+  height: 20vh;
+  left: 55vw;
+  top: 78vh;
+}
+#choice1 {
+  width: 8vw;
+  height: 20vh;
+  left: 35vw;
+  top: 78vh;
+  opacity: 0;
+}
+#choice2 {
+  width: 8vw;
+  height: 20vh;
+  left: 55vw;
+  top: 78vh;
+  opacity: 0;
+}
+
+@keyframes swing {
+  0%{
+    transform: rotate(0deg)
+  }
+  25%{
+    transform: rotate(10deg)
+  }
+  75%{
+    transform: rotate(-10deg)
+  }
+  100%{
+    transform: rotate(0deg)
+  }
+}</style>
+</head>
+<body>
+    <div id="container">
+  <h1 id="title">Dog Door Game</h1>
+  <input id="nameInput" type="text" placeholder="Type your name">
+  <button id="nameButton" type="button" onClick="getName()">Play Game</button>
+    <img id="coolDog" class="mainImage" src="https://www.pngkit.com/png/detail/67-674569_funny-dog-png-dog-with-sunglasses-transparent.png" alt="glasses-dog">
+  <img id="funnyDog" class="mainImage" src="https://i.pinimg.com/736x/e8/cc/7a/e8cc7ab3f5811fc222975f271245f661.jpg" alt="funny-dog">
+  
+ <div id="main">
+  <h2 id="hello-message"></h2>
+  <p id="main-text">There are two doors. Behind one is a sad dog, behind the other
+is a funny dog! Choose wisely!</p>
+  <p id="numberChoices">Number of choices this session: 0</p>
+  <p id="correctChoices">Correct choices this session: 0</p>
+  <p id="percentChoice">Percentage correct: %0.00</p>
+
+  <img id="door1" src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/7820919/door-clipart-md.png" alt="door1">
+  <img id="door2" src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/7820919/door-clipart-md.png" alt="door2">
+  <p id="output"></p>
+  <button type="button" id="choice1" onclick = "doorChoice()">Choose</button>
+  <button type="button" id="choice2" onclick = "doorChoice2()"></button>
+   <button type="button" id="retryButton" onclick="retry()">Try Again</button>
+ </div
+</div>
+
+    <script>const nameInput = document.getElementById('nameInput');
+const helloMessage = document.getElementById('hello-message');
+const button1 = document.getElementById('choice1');
+const button2 = document.getElementById('choice2');
+
+let correct = 0
+let attempts = 0
+let percent = 0
+
+function doorChoice() {
+  let randNum = (Math.floor(Math.random() * 2) + 1);
+  button1.style.display= "none";
+  button2.style.display= "none";
+  if (randNum == 1) {
+    door.src = happyDog;
+    door2.src = sadDog;
+    output.textContent = "Congrats, you got it right! ";
+    correct++
+    attempts++
+    percent = (correct / attempts)*100;
+    console.log(percent)
+    percentChoice.textContent = "Percentage correct: %" + percent.toFixed(2);
+    numberChoices.textContent = "Number of choices this session: " + attempts;
+    correctChoices.textContent = "Correct choices this session: " + correct;
+    retryButton.style.display= "block";
+  }
+  else{
+    door.src = sadDog;
+    door2.src = happyDog;
+    button1.style.display= "none";
+    button2.style.display= "none";
+    output.textContent = "YOU FAILED";
+    attempts++
+    percent = (correct / attempts)*100;
+    percentChoice.textContent = "Percentage correct: %" + percent.toFixed(2);
+    numberChoices.textContent = "Number of choices this session: " + attempts;
+    retryButton.style.display= "block";
+  }
+}
+function doorChoice2() {
+  let randNum = (Math.floor(Math.random() * 2) + 1);
+  if (randNum == 1) {
+    door.src = happyDog;
+    door2.src = sadDog;
+    button1.style.display= "none";
+    button2.style.display= "none";
+    output.textContent = "YOU FAILED";
+    attempts++
+    percent = (correct / attempts)*100;
+    percentChoice.textContent = "Percentage correct: %" + percent.toFixed(2);
+    numberChoices.textContent = "Number of choices this session: " + attempts;
+    retryButton.style.display= "block";
+  }
+  else{
+    door.src = sadDog;
+    door2.src = happyDog;
+    button1.style.display= "none";
+    button2.style.display= "none";
+    output.textContent = "Congrats, you got it right! ";
+    attempts++
+    correct++
+    percent = (correct / attempts)*100;
+    percentChoice.textContent = "Percentage correct: %" + percent.toFixed(2);
+    numberChoices.textContent = "Number of choices this session: " + attempts;
+    correctChoices.textContent = "Correct choices this session: " + correct;
+    retryButton.style.display= "block";
+  }
+}
+
+const door = document.getElementById('door1');
+const door2 = document.getElementById('door2');
+
+const doorImage = "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/7820919/door-clipart-md.png"
+
+const happyDog = "https://i.pinimg.com/originals/f6/8f/2b/f68f2babce51cbbcc2dfcd1441c19899.jpg";
+
+const sadDog= "https://i.pinimg.com/736x/b8/0f/70/b80f70409611cbb9ec27aecd96c59f4e.jpg"
+
+  
+function getName() {
+  const playerName = nameInput.value;
+  main.style.display = "block";
+  nameInput.style.display = "none";
+  nameButton.style.display = "none";
+  console.log("Hello " + playerName);
+  title.style.display = "none";
+  helloMessage.textContent = "Hello " + playerName + "!";
+}
+
+function retry() {
+  door.src = doorImage;
+  door2.src = doorImage;
+  button1.style.display= "block";
+  button2.style.display= "block";
+  retryButton.style.display= "none";
+}
+
+</script>
+</body>
+</html>
